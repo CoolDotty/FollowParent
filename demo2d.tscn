@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://blevlelnltene"]
+
+[ext_resource type="Texture2D" uid="uid://wv3fsss3hex1" path="res://Node2D.svg" id="1_gh0v8"]
+[ext_resource type="Texture2D" uid="uid://cmbfv37wodp8d" path="res://icon.svg" id="1_regjh"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent2D/FollowParent2D.gd" id="2_k6p5k"]
+
+[sub_resource type="GDScript" id="GDScript_l4k81"]
+resource_name = "Demo"
+script/source = "extends Node2D
+
+
+func _physics_process(delta):
+	position = get_viewport().get_mouse_position()
+"
+
+[node name="2D Demo" type="Node2D"]
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(581, 356)
+script = SubResource("GDScript_l4k81")
+
+[node name="Node2d" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_gh0v8")
+
+[node name="FollowParent2D" type="Node2D" parent="Player"]
+top_level = true
+position = Vector2(581, 356)
+script = ExtResource("2_k6p5k")
+lerp_speed = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/FollowParent2D"]
+texture = ExtResource("1_regjh")

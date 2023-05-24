@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1mt2l2jsl7xj"]
+
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="1_0e1fx"]
+[ext_resource type="Texture2D" uid="uid://bqn6bjs12aors" path="res://Node3D.svg" id="1_2bjbo"]
+[ext_resource type="Texture2D" uid="uid://cmbfv37wodp8d" path="res://icon.svg" id="2_md80x"]
+
+[sub_resource type="GDScript" id="GDScript_vmr7k"]
+resource_name = "Demo"
+script/source = "extends Node3D
+
+
+func _physics_process(delta):
+	var mouse_pos = get_viewport().get_mouse_position()
+	position = Vector3(
+			mouse_pos.x * 0.01, 
+			mouse_pos.y * -0.01, 
+			(mouse_pos.x - 0) / (1152 - 0) * (-5 - 5) + 5)
+"
+
+[node name="3D Demo" type="Node3D"]
+
+[node name="Player" type="Node3D" parent="."]
+script = SubResource("GDScript_vmr7k")
+
+[node name="Sprite3D" type="Sprite3D" parent="Player"]
+texture = ExtResource("1_2bjbo")
+
+[node name="FollowParent3D" type="Node3D" parent="Player"]
+top_level = true
+script = ExtResource("1_0e1fx")
+lerp_speed = 5.0
+
+[node name="Sprite3D" type="Sprite3D" parent="Player/FollowParent3D"]
+texture = ExtResource("2_md80x")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.78, -3, 5)
